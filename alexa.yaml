@@ -1,0 +1,35 @@
+smart_home:
+  filter:
+    include_entities:
+      - light.entryway
+  entity_config:
+    light.entryway:
+      name: Entryway light
+      description: The light in the entryway
+
+
+intent_script:
+  ActivateSceneIntent:
+    action:
+      service: scene.turn_on
+      data_template:
+        entity_id: scene.{{ Scene | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: OK
+
+# smart_home:
+#   filter:
+#     include_entities:
+#       - light.kitchen
+#       - light.kitchen_left
+#     include_domains:
+#       - switch
+#     exclude_entities:
+#       - switch.outside
+#   entity_config:
+#     light.kitchen:
+#       name: Custom Name for Alexa
+#       description: The light in the kitchen
+#     switch.stairs:
+#       display_categories: LIGHT

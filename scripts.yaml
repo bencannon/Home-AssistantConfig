@@ -1,0 +1,31 @@
+
+# add counter
+flash_laundry_room:
+    alias: Flash Laundry Room On
+    sequence:
+      - alias: Light Laundry Room On
+        service: light.turn_on
+        data:
+          entity_id: light.laundry_room
+      - delay:
+          # time for flash light on
+          seconds: 1
+      - alias: Light Laundry Room Off
+        service: light.turn_off
+        data:
+          entity_id: light.laundry_room
+      - delay:
+          # time for flash light off
+          seconds: 1
+      - alias: Loop flash_laundry_room
+        service: script.turn_on
+        data:
+          entity_id: script.flash_laundry_room
+
+activate_basement_bedtime:
+  alias: Basement Bedtime
+  sequence:
+    - alias: Light Laundry Room Off
+      service: light.turn_off
+      data:
+        entity_id: light.laundry_room

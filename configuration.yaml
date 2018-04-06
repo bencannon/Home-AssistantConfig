@@ -1,0 +1,118 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret loc_latitude
+  longitude: !secret loc_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret loc_elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Detroit
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend - disable?
+introduction:
+
+# Enables the frontend - enabling the latest javascript for better performance, at the cost of limited browser compatibility.
+frontend:
+  javascript_version: latest
+
+# Enables configuration UI
+config:
+
+# Emulate homekit devices
+homekit:
+  pincode: !secret homekit_pin
+
+# Emulate hue components. Note all Home Assistant components will be exposed as lights. Hue components are natively usable by Alexa.
+emulated_hue:
+  expose_by_default: true
+#  entities:
+#    light.laundry_room:
+#      name: "clothes drop"
+  
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+  ssl_certificate: !secret ssl_cert_path
+  ssl_key: !secret ssl_key_path
+  base_url: !secret base_url_name
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers - disable?
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+duckdns:
+  domain: !secret duckdns_domain
+  access_token: !secret duckdns_token
+
+# Track the sun
+sun:
+
+# Weather prediction
+
+
+
+counter:
+  counter:
+    initial: 0
+    step: 1
+
+
+
+# Text to speech - disable?
+tts:
+  - platform: google
+
+
+# Cloud - disable?
+cloud:
+
+# Nest
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
+
+ifttt:
+  key: !secret ifttt_api
+  
+
+#Hue Bridge
+#hue:
+#  bridges:
+#    - host: 192.168.1.55
+
+# Includes
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+alexa: !include alexa.yaml
+sensor: !include sensors.yaml
+notify: !include notify.yaml
+

@@ -1,0 +1,166 @@
+- alias: "Laundry room light off after one hour"
+  trigger:
+    - platform: state
+      entity_id: light.laundry_room
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 45
+      # what if light is turned off when 45 minutes comes around?
+  action:
+      service: light.turn_off
+      entity_id: light.laundry_room
+
+# Work with MB Light
+- alias: turn MB light off at midnight
+  trigger:
+    platform: time
+    hours: 22
+    minutes: 30
+    seconds: 01
+  action:
+    service: light.turn_off
+    entity_id: light.master_bedroom
+
+- alias: turn MB light off at midnight
+  trigger:
+    platform: time
+    hours: 23
+    minutes: 59
+    seconds: 01
+  action:
+    service: light.turn_off
+    entity_id: light.master_bedroom
+  
+# - alias: "Basement bedtime triggered by light state"
+#   trigger:
+#     - platform: state
+#       entity_id: light.basement_bulb_a
+#       to: off
+#       for:
+#          seconds: 5
+#     - platform: state
+#       entity_id: light.basement_bulb_c
+#       to: off
+#       for:
+#         seconds: 5
+#     - platform: state
+#       entity_id: light.basement_bulb_b
+#       to:
+#         on
+#       for:
+#         seconds: 5
+#     - platform: state
+#       entity_id: light.basement_bulb_d
+#       to:
+#         on
+#       for:
+#         seconds: 5
+#   action:
+#     service: notify.pushover_ben
+#     data:
+#       message: "Basement bedtime triggered"
+#       title: "It triggered"
+
+
+- alias: 'SSL expiry notification'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_cert_expiry
+    below: 14
+  action:
+    service: notify.notify
+    data:
+      message: 'Warning - SSL certificate expires in 14 days and has not been automatically renewed'
+
+- alias: 'Notify that WeMo is turned on'
+  trigger:
+    - platform: state
+      entity_id: switch.wemo_mini
+      from: 'off'
+      to: 'on'
+  action:
+    service: notify.email_annette
+    data:
+      title: 'Test message from our Home Assistant.'
+      message: 'The wemo switch has been turned on.'
+
+- alias: 'Notify by pushover that WeMo is turned on'
+  trigger:
+    - platform: state
+      entity_id: switch.wemo_mini
+      from: 'off'
+      to: 'on'
+  action:
+    service: notify.pushover_ben
+    data:
+      message: "This is the message"
+      title: "Title of message"
+#         data:
+#           url: "https://www.home-assistant.io/"
+#           sound: pianobar
+#           priority: 0
+
+
+
+
+
+
+#flash_laundry_room
+
+# Trigger: light is turned on at (100% brightness)
+# Wait 45 min
+#Brightness 20%, Wait 1 sec, 
+# Shallow Blink light (write script for this?) (B 100%, W 1s, B 20%, W 1s, B 100%, W 1s, Return to state before blink)
+# Wait 2m
+# If light is still at 20% then turn it off
+
+
+
+# The next section works as it is:
+#   - alias: "Laundry room light off after one hour"
+#     trigger:
+#       - platform: state
+#         entity_id: light.laundry_room
+#         from: 'off'
+#         to: 'on'
+#         for:
+#           hours: 1        
+#     action:
+#         service: light.turn_off
+#         entity_id: light.laundry_room
+
+
+
+#   - alias: "Laundry room light off after one hour"
+#     trigger:
+#       - platform: state
+#         entity_id: light.laundry_room
+#         from: 'off'
+#         to: 'on'
+#         for:
+#           hours: 1        
+#     condition:
+#       - condition: state
+#         entity_id: sun.sun
+#         state: 'above_horizon'
+#     action:
+#         service: light.turn_off
+#         entity_id: light.laundry_room
+
+
+
+#   - alias: "Basement wake routine"
+#     trigger:
+#       - platform: state
+#         entity_id: 
+#         to: 'playing'
+#           from: 'idle'
+#     condition:
+#       - condition: state
+#         entity_id: sun.sun
+#         state: 'below_horizon'
+#     action:
+#         service: scene.turn_on
+#         entity_id: scene.livingroom_dim
+#         

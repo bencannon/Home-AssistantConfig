@@ -1,0 +1,30 @@
+- name: email_ben
+  platform: smtp
+  server: !secret mail_server
+  port: 587
+  timeout: 15
+  sender: !secret ha_email_address
+  encryption: starttls
+  username: !secret ha_email_address
+  password: !secret ha_email_password
+  recipient:
+    - !secret ben_email_address
+  sender_name: !secret ha_email_name
+
+- name: email_annette
+  platform: smtp
+  server: !secret mail_server
+  port: 587
+  timeout: 15
+  sender: !secret ha_email_address
+  encryption: starttls
+  username: !secret ha_email_address
+  password: !secret ha_email_password
+  recipient:
+    - !secret annette_email_address
+  sender_name: !secret ha_email_name
+
+- name: pushover_ben
+  platform: pushover
+  api_key: !secret ben_pushover_api_key
+  user_key: !secret ben_pushover_user_key
