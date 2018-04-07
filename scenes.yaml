@@ -21,31 +21,30 @@
     light.entryway:
       state: on
       brightness: 100
-# - name: basement_bedtime
-#   entities:
-#     switch.tool_light:
-#       state: off
-#     light.laundry_room:
-#       state: off
-#     light.basement_bulb_a:
-#       state: on
-#       brightness: 1
-#     light.basement_bulb_b:
-#       state: on
-#       brightness: 1
-#     light.basement_bulb_c:
-#       state: on
-#       brightness: 1
-#     light.basement_bulb_d:
-#       state: on
-#       brightness: 1
-#     light.basement_bulb_e:
-#       state: off
-#     light.basement_bulb_f:
-#       state: off
-#     light.basement_bulb_g:
-#       state: off
-#        state: off
-#     light.top_of_stairs_bulb:
-#       state: on
-#       brightness: 1
+ - name: basement_bedtime
+   entities:
+     switch.tool_light:
+       state: off
+     light.laundry_room:
+       state: off
+     light.basement_bulb_a:
+       state: on
+       brightness: 1
+     light.basement_bulb_b:
+       state: on
+       brightness: 1
+     light.basement_bulb_c:
+       state: on
+       brightness: 1
+     light.basement_bulb_d:
+       state: on
+       brightness: 1
+     light.basement_bulb_e:
+       state: off
+     light.basement_bulb_f:
+       state: off
+     light.basement_bulb_g:
+       state: off
+     light.top_of_stairs_bulb:
+       state: on
+       brightness: 1
