@@ -1,5 +1,5 @@
 
-# add counter
+# add counter to this one?
 flash_laundry_room:
     alias: Flash Laundry Room On
     sequence:
@@ -22,10 +22,33 @@ flash_laundry_room:
         data:
           entity_id: script.flash_laundry_room
 
+# Should I break up "Family Room Nightlight" into separate bulb? Should I activate a scene?
+# Also, try out "flash" under light.turn_on service
+# It seems that I definitely could have used "scene_turn_on" or possibly hue.hue_activate_scene
 activate_basement_bedtime:
   alias: Basement Bedtime
   sequence:
-    - alias: Light Laundry Room Off
+    - alias: Laundry Room off
       service: light.turn_off
       data:
         entity_id: light.laundry_room
+        transition: 60
+    - alias: Back Storage Room off
+      service: light.turn_off
+      data:
+        entity_id: light.light.back_storage_room
+        transition: 60
+    - alias: Family Room Nightlight
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 30
+        brightness: 1
+    - alias: Turn off family room after 20 minutes
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 30
+        delay: '00:20'
+      
+

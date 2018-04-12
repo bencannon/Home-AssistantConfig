@@ -1,0 +1,13 @@
+switch.tpplug1:
+  friendly_name: Computer pole lamp
+switch.tpplug2:
+  friendly_name: Tool light
+switch.wemoplug1:
+  friendly_name: Piano lamp
+switch.wemoinsightplug1:
+  friendly_name: Internet switch
+light.girls_bedroom:
+  friendly_name: Girls room
+light.boys_bedroom:
+  friendly_name: Boys room
+

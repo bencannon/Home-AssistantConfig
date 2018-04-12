@@ -71,6 +71,31 @@ duckdns:
   domain: !secret duckdns_domain
   access_token: !secret duckdns_token
 
+light:
+  - platform: decora_wifi
+    username: !secret leviton_username
+    password: !secret leviton_password
+
+switch:
+  - platform: tplink
+    name: tp-plug-1
+    host: 192.168.1.101
+  - platform: tplink
+    name: tp-plug-2
+    host: 192.168.1.102
+
+# wemo:
+#   static:
+#     - 192.168.1.103
+#     - 192.168.1.104
+
+wemo:
+  static:
+    - name
+      192.168.1.103
+    - name
+      192.168.1.104
+
 # Track the sun
 sun:
 
@@ -86,12 +111,13 @@ counter:
 
 
 # Text to speech - disable?
-tts:
-  - platform: google
+#tts:
+#  - platform: google
 
 
 # Cloud - disable?
-cloud:
+#cloud:
+
 
 # Nest
 nest:
@@ -100,12 +126,35 @@ nest:
 
 ifttt:
   key: !secret ifttt_api
-  
+
 
 #Hue Bridge
-#hue:
-#  bridges:
-#    - host: 192.168.1.55
+hue:
+  bridges:
+    - host: 192.168.1.55
+
+# Define the action notification categories for use with the iOS app
+ios:
+  push:
+    categories:
+      - name: Alarm
+        identifier: 'alarm'
+        actions:
+          - identifier: 'SOUND_ALARM'
+            title: 'Sound Alarm'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: yes
+            behavior: 'default'
+          - identifier: 'SILENCE_ALARM'
+            title: 'Silence Alarm'
+            activationMode: 'background'
+            authenticationRequired: yes
+            destructive: no
+            behavior: 'textInput'
+            textInputButtonTitle: 'Silencio!'
+            textInputPlaceholder: 'Placeholder'
+
 
 # Includes
 group: !include groups.yaml

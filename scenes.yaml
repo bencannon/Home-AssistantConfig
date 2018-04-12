@@ -1,18 +1,51 @@
-# Basement
-- name: GameTime
+### Basement ###
+
+- name: basement_gametime
   entities:
-    light.laundry_room:
+    light.basement_bulb_f1:
       state: off
-    light.basement_bulb_a:
+    light.basement_bulb_f2:
       state: off
-   light.basement_bulb_b:
+    light.basement_bulb_f3:
       state: off
-    light.basement_bulb_c:
-      state: off
-    light.basement_bulb_d:
+    light.basement_bulb_f4:
       state: on
       brightness: 1
-- name: Basement_Bedtime
+      
+- name: basement_familyroom_bright
+  entities:
+    light.family_room:
+      state: on
+      brightness: 254
+
+- name: basement_familyroom_off
+  # family room off and brightness reset
+  entities:
+    light.family_room:
+      state: off
+      brightness: 254
+
+- name: Movies
+  entities:
+    light.tv_back_light:
+      state: on
+      brightness: 100
+    light.ceiling: off
+    media_player.sony_bravia_tv:
+      source: HDMI 1
+- name: entryway_on
+  entities:
+    light.entryway:
+      state: on
+      brightness: 254
+      color_temp: 156
+- name: entryway_off
+  entities:
+    light.entryway:
+      state: on
+      brightness: 254
+      color_temp: 156
+- name: basement_bedtime
   entities:
     switch.tool_light:
       state: off
@@ -39,73 +72,3 @@
     light.top_of_stairs_bulb:
       state: on
       brightness: 1
-
-# Living Room
-- name: entryway_on
-  entities:
-    light.entryway:
-      state: on
-      brightness: 100
-- name: entryway_off
-  entities:
-    light.entryway:
-      state: on
-      brightness: 100
-
-# Master Bedroom
-- name: master_bedroom_nightlight
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 1
-      color_temp: 443
-- name: master_bedroom_dimmed
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 77
-      color_temp: 367
-- name: master_bedroom_bright
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 254
-      color_temp: 367
-- name: master_bedroom_energize
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 254
-      color_temp: 156
-- name: master_bedroom_concentrate
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 254
-      color_temp: 233
-- name: master_bedroom_read
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 254
-      color_temp: 343
-- name: master_bedroom_relax
-  entities:
-    light.hue_ambiance_lamp_1:
-      state: on
-      brightness: 144
-      color_temp: 443
-
-# Boys Bedroom
-- name: boys_bedroom_sleep
-  entities:
-    light.boys_bedroom:
-      state: on
-      brightness: 1
-      color_temp: 153
-- name: boys_bedroom_bright
-  entities:
-    light.boys_bedroom:
-      state: on
-      brightness: 254
-      color_temp: 367

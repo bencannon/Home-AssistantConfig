@@ -1,41 +1,165 @@
-- alias: "Laundry room light off after one hour"
-  trigger:
-    - platform: state
-      entity_id: light.laundry_room
-      from: 'off'
-      to: 'on'
-      for:
-        minutes: 45
-      # what if light is turned off when 45 minutes comes around?
-  action:
-      service: light.turn_off
-      entity_id: light.laundry_room
+#####################
+#### AUTOMATIONS ####
+#####################
 
-# Work with MB Light
-- alias: turn MB light off at midnight
+### Time Based ###
+
+# Separate triggers for weekdays and weekends
+
+- alias: "04:40 Basement wake routine"
+  # 1
   trigger:
     platform: time
-    hours: 22
-    minutes: 30
-    seconds: 01
+    at: 04:40
   action:
-    service: light.turn_off
-    entity_id: light.master_bedroom
-
-- alias: turn MB light off at midnight
+    service: scene.turn_on
+    entity_id: scene.basement_familyroom_bright
+- alias: "04:55 Basement wake routine"
+  # 2
   trigger:
     platform: time
-    hours: 23
-    minutes: 59
-    seconds: 01
+    at: 04:55
   action:
-    service: light.turn_off
-    entity_id: light.master_bedroom
-  
+    service: scene.turn_on
+    entity_id: scene.basement_gametime
+- alias: "05:34 B & J departure routine"
+  # 1
+  trigger:
+    platform: time
+    at: 05:34
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f4
+      transition: 20
+      brightness: 254
+- alias: "05:36 B & J departure routine"
+  # 2
+  trigger:
+    platform: time
+    at: 05:36
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f1
+      transition: 20
+      brightness: 254
+- alias: "05:38 B & J departure routine"
+  # 3
+  trigger:
+    platform: time
+    at: 05:38
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f3
+      transition: 20
+      brightness: 254
+- alias: "05:39 Entryway on"
+  # 4
+  trigger:
+    platform: time
+    at: 05:39
+  action:
+    service: scene.turn_on
+    entity_id: scene.entryway_on
+- alias: "05:40 B & J departure routine"
+  trigger:
+    platform: time
+    at: 05:40
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f2
+      transition: 20
+      brightness: 254
+- alias: "05:41 B & J departure routine"
+  # 5
+  trigger:
+    platform: time
+    at: 05:41
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.top_of_stairs_bulb
+      transition: 60
+      brightness: 254
+- alias: "05:42 B & J departure routine"
+  # 6
+  trigger:
+    platform: time 
+    at: 05:42
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f2
+      #write script to make it flash
+      flash:
+- alias: "05:42 B & J departure routine"
+  # 7
+  trigger:
+    platform: time 
+    at: 05:42
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.basement_bulb_f2
+      #write script to make it flash
+      flash:
+- alias: "05:50 Turn off family room"
+  trigger:
+    platform: time 
+    at: 05:50
+  action:
+    service: scene.turn_on
+    entity_id: scene.basement_familyroom_off
+- alias: "05:59 Entryway off"
+  trigger:
+    platform: time
+    at: 05:59
+  action:
+    service: scene.turn_on
+    entity_id: scene.entryway_off
+- alias: "07:00 Entryway on"
+  trigger:
+    platform: time
+    at: 07:00
+  action:
+    service: scene.turn_on
+    entity_id: scene.entryway_on
+- alias: "08:30 Entryway off" 
+  trigger:
+    platform: time
+    at: 08:30
+  action:
+    service: scene.turn_on
+    entity_id: scene.entryway_off
+
+
+### BASEMENT ###
+
+# Entire Basement #
+
 # - alias: "Basement bedtime triggered by light state"
 #   trigger:
+#     - platform: state#       entity_id: light.basement_bulb_a
+#       to: on
+#       for:
+#          seconds: 5
 #     - platform: state
-#       entity_id: light.basement_bulb_a
+#       entity_id: light.basement_bulb_c
+#       to: off
+#       for:
+#         seconds: 5
+#   action:
+#     service: notify.pushover_ben
+#     data:
+#       message: "Basement bedtime triggered"
+#       title: "It triggered"
+
+# - alias: "Basement bedtime triggered by light state"
+#   trigger:
+#     - platform: state#       entity_id: light.basement_bulb_a
 #       to: off
 #       for:
 #          seconds: 5
@@ -62,17 +186,85 @@
 #       message: "Basement bedtime triggered"
 #       title: "It triggered"
 
+# Family Room #
 
-- alias: 'SSL expiry notification'
+
+# Laundry Room #
+
+- alias: "Laundry room light off after some time"
   trigger:
-    platform: numeric_state
-    entity_id: sensor.ssl_cert_expiry
-    below: 14
+    - platform: state
+      entity_id: light.laundry_room
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 45
   action:
-    service: notify.notify
-    data:
-      message: 'Warning - SSL certificate expires in 14 days and has not been automatically renewed'
+    service: light.turn_off
+    entity_id: light.laundry_room
 
+# Tool Light #
+
+- alias: "Tool light shouldn't be left on unless someone is doing stuff near the water softener"
+  trigger:
+    - platform: state
+      entity_id: switch.tpplug2
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 60
+  condition:
+    - condition: state
+      entity_id: light.basement_bulb_b2
+      state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: switch.tpplug2      
+
+- alias: "Tool light shouldn't be left on, no matter what"
+  trigger:
+    - platform: state
+      entity_id: switch.tpplug2
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 120
+  action:
+    service: light.turn_off
+    entity_id: switch.tpplug2      
+
+
+### MAIN FLOOR ###
+
+# Master Bedroom #
+
+- alias: dim MB light
+  trigger:
+    platform: time
+    hours: 22
+    minutes: 30
+    seconds: 01
+  action:
+    service: light.turn_on
+    entity_id: light.master_bedroom
+#    transition: 60
+#    brightness: 1
+    
+- alias: turn MB light off at midnight
+  trigger:
+    platform: time
+    hours: 23
+    minutes: 59
+    seconds: 01
+  action:
+    service: light.turn_off
+    entity_id: light.master_bedroom
+#    transition: 60
+    
+
+# Living Room #
+
+# For testing purposes--use it for real or throw it away
 - alias: 'Notify that WeMo is turned on'
   trigger:
     - platform: state
@@ -101,10 +293,68 @@
 #           sound: pianobar
 #           priority: 0
 
+# Boys Room #
+
+- alias: "Wake up boys room: 1"
+  trigger:
+    platform: time
+    at: 06:59
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.boys_color_bulb
+      transition: 60
+      brightness: 254
+      color_temp: 156
+- alias: "Wake up boys room: 2"
+  trigger:
+    platform: time
+    at: 06:59
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.boys_color_bulb
+      flash:      
+      
+      
+      
+      
+      
 
 
+### HOME ASSISTANT ###
 
+- alias: 'SSL expiry notification'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_cert_expiry
+    below: 14
+  action:
+    service: notify.notify
+    data:
+      message: 'Warning - SSL certificate expires in 14 days and has not been automatically renewed'
 
+### TESTING ###
+
+- alias: 'Notify iOS app'
+  trigger:
+    - platform: state
+      entity_id: light.basement_bulb_f1
+      to: 'on'
+  action:
+    service: notify.ios_bens_iphone_7
+    data:
+      message: "Something happened at home!"
+      data:
+        push:
+          badge: 5
+#          sound: <SOUND FILE HERE>
+          category: "alarm" # Needs to match the top level identifier you used in the ios configuration
+        action_data: # Anything passed in action_data will get echoed back to Home Assistant.
+          entity_id: light.test
+          my_custom_data: foo_bar
+
+### POSSIBLY FIX THESE UP AND PUT THEM SOMEWHERE ###
 
 #flash_laundry_room
 
@@ -132,35 +382,21 @@
 
 
 
-#   - alias: "Laundry room light off after one hour"
-#     trigger:
-#       - platform: state
-#         entity_id: light.laundry_room
-#         from: 'off'
-#         to: 'on'
-#         for:
-#           hours: 1        
-#     condition:
-#       - condition: state
-#         entity_id: sun.sun
-#         state: 'above_horizon'
-#     action:
-#         service: light.turn_off
-#         entity_id: light.laundry_room
+# - alias: "example of sun condition"
+#   trigger:
+#     - platform: state
+#       entity_id: light.laundry_room
+#       from: 'off'
+#       to: 'on'
+#       for:
+#         hours: 1
+#   condition:
+#     - condition: state
+#       entity_id: sun.sun
+#       state: 'above_horizon'
+#   action:
+#     service: light.turn_off
+#     entity_id: light.laundry_room
 
 
 
-#   - alias: "Basement wake routine"
-#     trigger:
-#       - platform: state
-#         entity_id: 
-#         to: 'playing'
-#           from: 'idle'
-#     condition:
-#       - condition: state
-#         entity_id: sun.sun
-#         state: 'below_horizon'
-#     action:
-#         service: scene.turn_on
-#         entity_id: scene.livingroom_dim
-#         
