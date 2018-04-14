@@ -22,6 +22,142 @@ flash_laundry_room:
         data:
           entity_id: script.flash_laundry_room
 
+flash_family_room:
+  alias: Flash Family Room
+  # Is it worth using a counter here?
+  sequence:
+    - service: script.flash_family_room_once
+    - service: script.flash_family_room_once
+    - service: script.flash_family_room_once
+    - service: script.flash_family_room_once
+
+
+flash_family_room_once:
+  alias: Flash Family Room Once
+  sequence:
+    - alias: ON
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .8
+    - alias: OFF
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .8
+
+flash_family_room_old:
+  alias: Flash Family Room old
+  sequence:
+    - alias: ON
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: OFF
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: ON
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: OFF
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: ON
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: OFF
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: ON
+      service: light.turn_on
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+    - alias: OFF
+      service: light.turn_off
+      data:
+        entity_id: light.family_room
+        transition: 0
+        brightness: 254
+    - delay:
+        seconds: .5
+        
+circle_flash_pattern_family_room:
+# Have this script run until explicitly turned off?
+  alias: Cirlce Flash Pattern Family Room
+  sequence:
+    - alias: T+00  f1 turn_on
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f1
+        transition: 2
+        brightness: 254
+    - delay:
+        seconds: 1
+    - alias: T+01  f2 turn_on
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f2
+        transition: 2
+        brightness: 254
+    - delay:
+        seconds: 1
+    - alias: T+02  f3 turn_on  (f1 ful`ly on)
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f3
+        transition: 2
+        brightness: 254
+    - delay:
+        seconds: 1
+    - alias: T+03  f4 turn_on  (f2 fully on)
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f4
+        transition: 2
+        brightness: 254
+    - delay:
+        seconds: 1
+
+
 # Should I break up "Family Room Nightlight" into separate bulb? Should I activate a scene?
 # Also, try out "flash" under light.turn_on service
 # It seems that I definitely could have used "scene_turn_on" or possibly hue.hue_activate_scene

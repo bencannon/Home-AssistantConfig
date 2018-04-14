@@ -1,3 +1,15 @@
+
+- alias: "Testflash!!!!1"
+  trigger:
+    platform: time
+    at: 09:18
+  action:
+    service: script.flash_family_room
+
+
+
+#### TEST ####
+
 #####################
 #### AUTOMATIONS ####
 #####################
@@ -90,18 +102,7 @@
     platform: time 
     at: 05:42
   action:
-    service: light.turn_on
-    data:
-      entity_id: light.basement_bulb_f2
-      #write script to make it flash
-      flash:
-- alias: "05:42 B & J departure routine"
-  # 7
-  trigger:
-    platform: time 
-    at: 05:42
-  action:
-    service: light.turn_on
+    service: light.turn_off
     data:
       entity_id: light.basement_bulb_f2
       #write script to make it flash
@@ -120,6 +121,17 @@
   action:
     service: scene.turn_on
     entity_id: scene.entryway_off
+- alias: "06:59 Wake up boys room"
+  trigger:
+    platform: time
+    at: 06:59
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.boys_color_bulb
+      transition: 60
+      brightness: 254
+      color_temp: 156
 - alias: "07:00 Entryway on"
   trigger:
     platform: time
@@ -127,6 +139,12 @@
   action:
     service: scene.turn_on
     entity_id: scene.entryway_on
+- alias: "07:30 Boys room off"
+  trigger:
+    platform: time
+    at: 07:30
+  action:
+    service: light.turn_off
 - alias: "08:30 Entryway off" 
   trigger:
     platform: time
@@ -134,6 +152,80 @@
   action:
     service: scene.turn_on
     entity_id: scene.entryway_off
+
+- alias: "22:30 dim MB light"
+  trigger:
+    platform: time
+    hours: 22
+    minutes: 30
+    seconds: 01
+  action:
+    service: light.turn_on
+    entity_id: light.master_bedroom
+#    transition: 60
+#    brightness: 1
+    
+- alias: "23:59 turn MB light off at midnight"
+  trigger:
+    platform: time
+    hours: 23
+    minutes: 59
+    seconds: 01
+  action:
+    service: light.turn_off
+    entity_id: light.master_bedroom
+#    transition: 60
+
+### End Time Based ###
+
+
+
+
+### TURN OFF AFTER DELAY ###
+
+- alias: "TimedOff Laundry room light"
+  trigger:
+    - platform: state
+      entity_id: light.laundry_room
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 45
+  action:
+    service: light.turn_off
+    entity_id: light.laundry_room
+
+- alias: "TimedOff Tool light (shouldn't be left on unless someone is doing stuff near the water softener)"
+  trigger:
+    - platform: state
+      entity_id: switch.tpplug2
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 60
+  condition:
+    - condition: state
+      entity_id: light.basement_bulb_b2
+      state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: switch.tpplug2      
+
+- alias: "TimedOff Tool light (no matter what)"
+  trigger:
+    - platform: state
+      entity_id: switch.tpplug2
+      from: 'off'
+      to: 'on'
+      for:
+        minutes: 120
+  action:
+    service: light.turn_off
+    entity_id: switch.tpplug2
+    
+    
+    
+
 
 
 ### BASEMENT ###
@@ -191,78 +283,19 @@
 
 # Laundry Room #
 
-- alias: "Laundry room light off after some time"
-  trigger:
-    - platform: state
-      entity_id: light.laundry_room
-      from: 'off'
-      to: 'on'
-      for:
-        minutes: 45
-  action:
-    service: light.turn_off
-    entity_id: light.laundry_room
-
 # Tool Light #
 
-- alias: "Tool light shouldn't be left on unless someone is doing stuff near the water softener"
-  trigger:
-    - platform: state
-      entity_id: switch.tpplug2
-      from: 'off'
-      to: 'on'
-      for:
-        minutes: 60
-  condition:
-    - condition: state
-      entity_id: light.basement_bulb_b2
-      state: 'on'
-  action:
-    service: light.turn_off
-    entity_id: switch.tpplug2      
-
-- alias: "Tool light shouldn't be left on, no matter what"
-  trigger:
-    - platform: state
-      entity_id: switch.tpplug2
-      from: 'off'
-      to: 'on'
-      for:
-        minutes: 120
-  action:
-    service: light.turn_off
-    entity_id: switch.tpplug2      
 
 
 ### MAIN FLOOR ###
 
 # Master Bedroom #
 
-- alias: dim MB light
-  trigger:
-    platform: time
-    hours: 22
-    minutes: 30
-    seconds: 01
-  action:
-    service: light.turn_on
-    entity_id: light.master_bedroom
-#    transition: 60
-#    brightness: 1
-    
-- alias: turn MB light off at midnight
-  trigger:
-    platform: time
-    hours: 23
-    minutes: 59
-    seconds: 01
-  action:
-    service: light.turn_off
-    entity_id: light.master_bedroom
-#    transition: 60
     
 
 # Living Room #
+
+### NOTIFICATIONS ###
 
 # For testing purposes--use it for real or throw it away
 - alias: 'Notify that WeMo is turned on'
@@ -295,26 +328,6 @@
 
 # Boys Room #
 
-- alias: "Wake up boys room: 1"
-  trigger:
-    platform: time
-    at: 06:59
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.boys_color_bulb
-      transition: 60
-      brightness: 254
-      color_temp: 156
-- alias: "Wake up boys room: 2"
-  trigger:
-    platform: time
-    at: 06:59
-  action:
-    service: light.turn_on
-    data:
-      entity_id: light.boys_color_bulb
-      flash:      
       
       
       

@@ -107,6 +107,7 @@ counter:
   counter:
     initial: 0
     step: 1
+#     mdi:backup-restore
 
 
 
