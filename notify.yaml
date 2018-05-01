@@ -23,8 +23,3 @@
   recipient:
     - !secret annette_email_address
   sender_name: !secret ha_email_name
-
-- name: pushover_ben
-  platform: pushover
-  api_key: !secret ben_pushover_api_key
-  user_key: !secret ben_pushover_user_key

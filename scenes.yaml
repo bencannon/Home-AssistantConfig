@@ -11,12 +11,16 @@
     light.basement_bulb_f4:
       state: on
       brightness: 1
+    light.top_of_stairs_bulb:
+      state: on
+      brightness: 1
       
 - name: basement_familyroom_bright
   entities:
     light.family_room:
       state: on
-      brightness: 254
+      brightness: 254  
+      transition: 30
 
 - name: basement_familyroom_off
   # family room off and brightness reset
@@ -25,20 +29,17 @@
       state: off
       brightness: 254
 
-- name: Movies
-  entities:
-    light.tv_back_light:
-      state: on
-      brightness: 100
-    light.ceiling: off
-    media_player.sony_bravia_tv:
-      source: HDMI 1
-- name: entryway_on
+- name: entryway_bright
   entities:
     light.entryway:
       state: on
       brightness: 254
       color_temp: 156
+- name: entryway_nightlight
+  entities:
+    light.entryway:
+      state: on
+      brightness: 1
 - name: entryway_off
   entities:
     light.entryway:
@@ -51,23 +52,23 @@
       state: off
     light.laundry_room:
       state: off
-    light.basement_bulb_a:
+    light.basement_bulb_f1:
       state: on
       brightness: 1
-    light.basement_bulb_b:
+    light.basement_bulb_f2:
       state: on
       brightness: 1
-    light.basement_bulb_c:
+    light.basement_bulb_f3:
       state: on
       brightness: 1
-    light.basement_bulb_d:
+    light.basement_bulb_f4:
       state: on
       brightness: 1
-    light.basement_bulb_e:
+    light.basement_bulb_l:
       state: off
-    light.basement_bulb_f:
+    light.basement_bulb_b1:
       state: off
-    light.basement_bulb_g:
+    light.basement_bulb_b2:
       state: off
     light.top_of_stairs_bulb:
       state: on

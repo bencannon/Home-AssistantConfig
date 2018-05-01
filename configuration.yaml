@@ -10,11 +10,11 @@ homeassistant:
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Detroit
-  # Customization file
+  # Customization file -- must be inside "homeassistant:"
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend - disable?
-introduction:
+# Show links to resources in log and frontend
+# introduction:
 
 # Enables the frontend - enabling the latest javascript for better performance, at the cost of limited browser compatibility.
 frontend:
@@ -30,9 +30,35 @@ homekit:
 # Emulate hue components. Note all Home Assistant components will be exposed as lights. Hue components are natively usable by Alexa.
 emulated_hue:
   expose_by_default: true
+  entities:
+    script.lr_b0:
+      name: Living Room Off
+      hidden: false
+    script.lr_b1:
+      name: Living Room On
+      hidden: false
+#  exposed_domains:
+# should i diable any of these?
+#    - light
+#    - script
+#    - scene
+#   entities:
+#     script.fr_gametime:
+#       name: Game Time
+#       hidded: false
+#     script.basement_bedtime_10min:
+#       name: Basement Bedtime Ten
+#       hidded: false
+#     script.basement_bedtime_20min:
+#       name: Basement Bedtime Twenty
+#       hidded: false
+      
+
 #  entities:
 #    light.laundry_room:
 #      name: "clothes drop"
+
+
   
 http:
   # Secrets are defined in the file secrets.yaml
@@ -84,10 +110,37 @@ switch:
     name: tp-plug-2
     host: 192.168.1.102
 
-# wemo:
-#   static:
-#     - 192.168.1.103
-#     - 192.168.1.104
+# D-link Camera
+camera:
+
+  - platform: mjpeg
+    name: Dlink Camera
+    still_image_url: http://192.168.1.88/image.jpg
+    mjpeg_url: http://192.168.1.88/video/mjpg.cgi
+    username: admin
+    password: !secret dlink_camera_password
+    
+    
+    
+
+
+# KKMOON TP-C537T protocol path
+# TP-C537T FFMPEG	rtsp://	/0
+# rtsp://admin:password@192.168.1.11/0
+
+
+# Talk to the router to see who is presents
+# interval_seconds defaults to 12. Maybe it should be returned to that setting or be combined with other forms of presence detection.'
+device_tracker:
+  - platform: netgear
+    host: 192.168.1.1
+    username: !secret netgear_router_username
+    password: !secret netgear_router_password
+    new_device_defaults:
+        track_new_devices: yes
+#         hide_if_away: False
+#         interval_seconds: 60
+
 
 wemo:
   static:
@@ -101,13 +154,28 @@ sun:
 
 # Weather prediction
 
+## TODO: Figure out what I was doing and finish it
+input_select:
+  lullaby:
+    name: Lullaby
+    options:
+      - Rain
+      - Babbling Brook
+      - None
+    initial: None
+    icon: mdi:weather-rainy
+
+
+
+
+
 
 
 counter:
   counter:
     initial: 0
     step: 1
-#     mdi:backup-restore
+    icon: mdi:backup-restore
 
 
 
@@ -116,7 +184,7 @@ counter:
 #  - platform: google
 
 
-# Cloud - disable?
+# Cloud - not using it
 #cloud:
 
 
@@ -158,11 +226,13 @@ ios:
 
 
 # Includes
-group: !include groups.yaml
+# group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
-alexa: !include alexa.yaml
+#alexa: !include alexa.yaml
 sensor: !include sensors.yaml
 notify: !include notify.yaml
+automation old: !include automations_old.yaml
+# automation old: !include_dir_merge_list automations
 

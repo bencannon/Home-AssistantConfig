@@ -1,22 +1,33 @@
-smart_home:
-  filter:
-    include_entities:
-      - light.entryway
-  entity_config:
-    light.entryway:
-      name: Entryway light
-      description: The light in the entryway
+## UNDER CONSTRUCTION -- Maybe just skip doing fancy stuff with Alexa
+# smart_home:
+#   filter:
+#     include_entities:
+#       - light.entryway
+#   entity_config:
+#     light.entryway:
+#       name: Entryway light
+#       description: The light in the entryway
+# 
+# 
+# intent_script:
+#   ActivateSceneIntent:
+#     action:
+#       service: scene.turn_on
+#       data_template:
+#         entity_id: scene.{{ Scene | replace(" ", "_") }}
+#     speech:
+#       type: plain
+#       text: OK
+# 
 
 
-intent_script:
-  ActivateSceneIntent:
-    action:
-      service: scene.turn_on
-      data_template:
-        entity_id: scene.{{ Scene | replace(" ", "_") }}
-    speech:
-      type: plain
-      text: OK
+
+
+
+
+
+
+
 
 # smart_home:
 #   filter:

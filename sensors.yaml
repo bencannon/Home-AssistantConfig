@@ -14,7 +14,9 @@
   name: SSL cert expiry
   unit_of_measurement: days
   scan_interval: 10800 # 10800 sec = 3 hours -- check certificate every 3 hours
-  command: "ssl-cert-check -b -c /etc/letsencrypt/live/kcannons.duckdns.org/cert.pem | awk '{ print $NF }'"
+#  command: "ssl-cert-check -b -c /etc/letsencrypt/live/???????.duckdns.org/cert.pem | awk '{ print $NF }'"
+  command: "/home/homeassistant/.homeassistant/bash_scripts/ssl-cert-check_script"
+
 
 - platform: darksky
   api_key: !secret darksky_api
@@ -36,4 +38,31 @@
     - precip_intensity
     - precip_probability
 
+- platform: command_line
+  name: CPU Temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°F"
+  value_template: '{{ (value | multiply(0.001) | multiply(1.8)  + 32) | round(1) }}'
+
+## TO DO: Clean this up (use template or bash script?)
+- platform: command_line
+  name: Load Average
+  command: "cat /proc/loadavg"
+  value_template: '{{ value }}'
+
+## TO DO: Clean this up (use template or bash script?)
+- platform: command_line
+  name: Memory Usage
+  command: "/usr/bin/free -h"
+  value_template: '{{ value }}'
+
+## TO DO: Clean this up (use template or bash script?)
+- platform: command_line
+  name: Disk Usage
+  command: "/bin/df -ht ext4"
+  value_template: '{{ value }}'
+
+## TO DO: Set this up (is it even useful?)
+## TO DO: Clean this up (use template or bash script?)
+#du -h /home/homeassistant/.homeassistant/home-assistant_v2.db
 

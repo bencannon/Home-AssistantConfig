@@ -1,0 +1,162 @@
+#####################
+###### GROUPS #######
+#####################
+
+
+#### UNDER CONSTRUCTION -- NOT ACTIVE ####
+
+# view: true - the groups will have its own tab
+# control: true - there will be a switch at the top of group that turns off all lights/switch together
+
+# have default view be house by larger groups and smaller grooups ub tabs
+
+
+# default_view:
+#Scripts to toggle lights
+#   view: yes
+#   icon: mdi:home
+#   entities:
+#     - group.bedrooms
+#     - group.basement
+#     - group.family_room
+#     - group.broom
+#     - group.Family_Room
+#     - group.Bedrooms
+
+# default_view:
+#   view: yes
+
+favs:
+  name: Favs
+  view: yes
+  entities:
+    - scene.basement_gametime
+    - scene.basement_familyroom_bright
+
+occupancy:
+  name: Occupancy
+  view: yes
+  entities:
+    group.people
+    group.devices
+
+status:
+  name: Status Panel
+  view: true
+  entities:
+    - script.basement_bedtime_10
+    - input_select.lullaby
+
+quick_switches:
+  name: Quick Switches
+  entities:
+    - script.basement_bedtime_10
+
+living_room:
+  name: Living Room
+  view: true
+  entities:
+    - light.entryway_color_bulb
+    - switch.tpplug1
+    - switch.wemoplug1
+    - group.fr
+
+    
+# family_room:
+#   name: Family Room
+#   view: true
+#   entities:
+#     - light.basement_bulb_f1
+#     - light.basement_bulb_f2
+#     - light.basement_bulb_f3
+#     - light.basement_bulb_f4
+#     - light.top_of_stairs_bulb
+
+people:
+  name: People
+  entities:
+    - device_tracker.bens_iphone_7
+    - device_tracker.rachelsiphone
+    - device_tracker.joshuas_iphone
+    - device_tracker.joshuasiphone
+    
+devices:
+  name: Devices
+  entities:
+    - device_tracker.alexsipad
+    - device_tracker.00e0a972b718
+
+
+######## try taking "group" off the front of this to see what happens #######
+group fr:
+#   view: yes
+
+  entities:
+    - light.basement_bulb_f1
+    - light.basement_bulb_f2
+    - light.basement_bulb_f3
+    - light.basement_bulb_f4
+    - light.top_of_stairs_bulb
+  
+
+# basement:
+#   name: Basement
+#   view: no
+#   icon: mdi:stairs
+#   entities:
+#     - group.family_room
+#     - group.storage_area
+#     - group.laundry_room
+# 
+# bedrooms:
+#   name: Bedrooms
+#   view: no
+#   icon: mdi:hotel
+#   entities:
+#     - light.master_bedroom
+#     - light.girls_bedroom
+#     - light.boys_bedroom
+# 
+# family_room:
+#   view: no
+# #   icon: mdi:
+#   entities:
+#     - light.basement_bulb_f1
+#     - light.basement_bulb_f2
+#     - light.basement_bulb_f3
+#     - light.basement_bulb_f4
+# #     - light.top_of_stairs_bulb
+# 
+# storage_area:
+#   name: Storage Room
+#   view: no
+# #   icon: mdi:
+#   entities:
+#     - light.basement_bulb_b1
+#     - light.basement_bulb_b2
+#     - switch.tpplug2
+# 
+# laundry_room:
+#   name: Laundry Room
+#   view: no
+#   icon: mdi:washing-machine
+#   entities:  
+#     - light.basement_bulb_l
+
+
+
+# --------commented out below-----------
+
+
+
+    # Family_Room:
+#   name: Family Room
+#   view: no
+#   entities:
+#     - light.basement_bulb_f1
+#     - light.basement_bulb_f2
+#     - light.basement_bulb_f3
+#     - light.basement_bulb_f4
+#     - light.top_of_stairs_bulb
+# 
+    

@@ -1,4 +1,16 @@
 
+# This is called when dlink camera detects motion
+# during most daylight hours, this script should turn on computer lamp and piano lamp
+# in the night, entryway should be turn on with low brightness, if not already on
+dlink_motion_detected:
+  alias: Motion Detected by Dlink Camera
+  sequence:
+  # Still being configured...
+    - service: script.lr_b1
+    - service: script.lr_b1
+    
+# TO DO -- Decide when to use scripts vs scenes
+
 # add counter to this one?
 flash_laundry_room:
     alias: Flash Laundry Room On
@@ -22,169 +34,664 @@ flash_laundry_room:
         data:
           entity_id: script.flash_laundry_room
 
-flash_family_room:
-  alias: Flash Family Room
+
+circle_flash_family_room:
+  alias: Circle Flash Family Room
   # Is it worth using a counter here?
   sequence:
-    - service: script.flash_family_room_once
-    - service: script.flash_family_room_once
-    - service: script.flash_family_room_once
-    - service: script.flash_family_room_once
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
+    - delay: '00:00:01'
+    - service: script.circle_ccw_flash_pattern_family_room
 
+circle_flash_family_room2:
+  alias: Circle Flash Family Room2
+  # Is it worth using a counter here?
+  sequence:
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
+    - delay: '00:00:02'
+    - service: script.circle_ccw_flash_pattern_family_room2
 
-flash_family_room_once:
-  alias: Flash Family Room Once
+a:
+  alias: a
   sequence:
-    - alias: ON
-      service: light.turn_on
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .8
-    - alias: OFF
-      service: light.turn_off
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .8
+    - service: script.b
 
-flash_family_room_old:
-  alias: Flash Family Room old
+a2:
+  alias: a2
   sequence:
-    - alias: ON
-      service: light.turn_on
+    - service: script.turn_on
       data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: OFF
-      service: light.turn_off
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: ON
-      service: light.turn_on
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: OFF
-      service: light.turn_off
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: ON
-      service: light.turn_on
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: OFF
-      service: light.turn_off
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: ON
-      service: light.turn_on
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-    - alias: OFF
-      service: light.turn_off
-      data:
-        entity_id: light.family_room
-        transition: 0
-        brightness: 254
-    - delay:
-        seconds: .5
-        
-circle_flash_pattern_family_room:
-# Have this script run until explicitly turned off?
-  alias: Cirlce Flash Pattern Family Room
+        entity: script.b
+
+b:
+  alias: b
   sequence:
-    - alias: T+00  f1 turn_on
+    - alias: "b plus"
       service: light.turn_on
       data:
         entity_id: light.basement_bulb_f1
-        transition: 2
         brightness: 254
     - delay:
-        seconds: 1
-    - alias: T+01  f2 turn_on
-      service: light.turn_on
-      data:
-        entity_id: light.basement_bulb_f2
-        transition: 2
-        brightness: 254
-    - delay:
-        seconds: 1
-    - alias: T+02  f3 turn_on  (f1 ful`ly on)
-      service: light.turn_on
-      data:
-        entity_id: light.basement_bulb_f3
-        transition: 2
-        brightness: 254
-    - delay:
-        seconds: 1
-    - alias: T+03  f4 turn_on  (f2 fully on)
-      service: light.turn_on
-      data:
-        entity_id: light.basement_bulb_f4
-        transition: 2
-        brightness: 254
-    - delay:
-        seconds: 1
+        seconds: 2
+
+fr_lights_out_in_10m:
+  alias: FR Lights Out in 10 minutes
+  sequence:
+    - delay: '00:10:00'
+    - service: script.fr5_b0
 
 
-# Should I break up "Family Room Nightlight" into separate bulb? Should I activate a scene?
-# Also, try out "flash" under light.turn_on service
-# It seems that I definitely could have used "scene_turn_on" or possibly hue.hue_activate_scene
-activate_basement_bedtime:
+
+early_wake_routine:
+  alias: Early Wake Routinee
+  sequence:
+    - service: script.fr_b254_t60
+    - delay: '00:01:00'
+    - service: script.dc_b30
+    - delay: '00:10:00'
+    - service: script.fr_gametime
+    - service: script.fr_gametime
+
+early_departure_routine:
+  alias: Early Departure Routine
+  sequence:
+    - service: script.f1_b254_t60
+    - delay: '00:01:00'
+    - service: script.f4_b254_t60
+    - delay: '00:01:00'
+    - service: script.f3_b254_t60
+    - delay: '00:01:00'
+    - service: script.f2_b1_t60
+    - delay: '00:01:00'
+    - service: script.ew_b254_c156
+    - delay: '00:01:00'
+    - service: script.ft_b254
+
+early_departure_now:
+  alias: Early Departure Now
+  sequence:
+    - service: script.fr_flash
+    - delay: '00:07:00'
+    - service: script.fr_b0
+    - delay: '00:07:00'
+    - service: script.ew_b0
+
+
+basement_bedtime_20min:
+  alias: Basement Bedtime Twenty
+  sequence:
+    - service: script.basement_bedtime
+    - delay: '00:20'
+    - service: script.basement_b0
+    - service: script.fr_b0
+
+
+basement_bedtime_10min:
+  alias: Basement Bedtime Ten
+  sequence:
+    - service: script.basement_bedtime
+    - delay: '00:10'
+    - service: script.basement_b0
+    - service: script.fr_b0
+
+
+#############################
+###### Complex Pieces #######
+
+basement_bedtime:
   alias: Basement Bedtime
   sequence:
-    - alias: Laundry Room off
+    - service: script.sr_b0
+    - service: script.l_b0
+    - delay: '00:00:01'
+    - service: script.fr_b1
+
+basement_b0:
+  alias: Turn Off Basement Lights
+  sequence:
+    - service: script.fr_b0
+    - service: script.sr_b0
+    - service: script.l_b0
+
+fr_flash:
+  alias: Flash Familyroom Lights
+  sequence:
+    - service: script.toggle_familyroom
+    - delay: '00:00:01'
+    - service: script.toggle_familyroom
+    - delay: '00:00:02'
+    - service: script.toggle_familyroom
+    - delay: '00:00:01'
+    - service: script.toggle_familyroom
+    - delay: '00:00:02'
+    - service: script.toggle_familyroom
+    - delay: '00:00:01'
+    - service: script.toggle_familyroom
+
+toggle_familyroom:
+  alias: Toggle Familyroom
+  sequence:
+    - service: script.f1_toggle_t1
+    - service: script.f2_toggle_t1
+    - service: script.f3_toggle_t1
+    - service: script.f4_toggle_t1
+
+
+#############################
+####### Larger Pieces #######
+
+fr_gametime:
+  alias: Basement Gametime
+  sequence:
+    - service: script.f1_b0
+    - service: script.f2_b0
+    - service: script.f3_b0
+    - service: script.f4_b1
+    - service: script.ft_b1
+
+fr_b254_t60:
+  alias: FR B254 T60
+  sequence:
+    - service: script.f1_b254_t60
+    - service: script.f2_b254_t60
+    - service: script.f3_b254_t60
+    - service: script.f4_b254_t60
+    - service: script.ft_b254_t60
+    - service: script.f3_b254_t60
+    
+fr_b0:
+  alias: FR B0
+  sequence:
+    - service: script.f1_b0
+    - service: script.f2_b0
+    - service: script.f3_b0
+    - service: script.f4_b0
+    - service: script.ft_b0
+
+fr_b1:
+  alias: FR B1
+  sequence:
+    - service: script.f1_b1
+    - service: script.f2_b1
+    - service: script.f3_b1
+    - service: script.f4_b1
+    - service: script.ft_b1
+
+sr_b0:
+  alias: SR B0
+  sequence:
+    - service: script.wb_b0
+    - service: script.s1_b0
+    - service: script.s2_b0
+
+# note that l = laundry room and lr = living room
+lr_b1:
+  alias: LR B1
+  sequence:
+    - service: script.polelamp_b1
+    - service: script.pianolamp_b1
+
+lr_b0:
+  alias: LR B0
+  sequence:
+    - service: script.polelamp_b0
+    - service: script.pianolamp_b0
+
+#############################
+##### Individual Pieces #####
+
+polelamp_b0:
+  alias: PoleLamp B0
+  sequence:
+    service: switch.turn_off
+    data:
+      entity_id: switch.tpplug1
+
+polelamp_b1:
+  alias: PoleLamp B1
+  sequence:
+    service: switch.turn_on
+    data:
+      entity_id: switch.tpplug1
+
+pianolamp_b0:
+  alias: PianoLamp B0
+  sequence:
+    service: switch.turn_off
+    data:
+      entity_id: switch.wemoplug1
+
+pianolamp_b1:
+  alias: PianoLamp B1
+  sequence:
+    service: switch.turn_on
+    data:
+      entity_id: switch.wemoplug1
+
+ew_b0:
+  alias: EW B0
+  sequence:
+    service: light.off
+    data:
+      entity_id: light.entryway
+
+
+ew_b254_c156:
+  alias: EW B254 C156 (bright)
+  sequence:
+    service: light.on
+    data:
+      entity_id: light.entryway
+      brightness: 254
+      color_temp: 156
+
+dc_b0:
+  alias: DC B0
+  sequence:
+    service: light.turn_on
+    data:
+      entity_id: light.dining_room_chandelier
+      brightness: 0
+
+dc_b30:
+  alias: DC B30
+  sequence:
+    service: light.turn_on
+    data:
+      entity_id: light.dining_room_chandelier
+      brightness: 30
+
+dc_b255:
+  alias: DC B255
+  sequence:
+    service: light.turn_on
+    data:
+      entity_id: light.dining_room_chandelier
+      brightness: 255
+
+# wb = workbench
+wb_b0:
+  alias: WB1 B0
+  sequence:
+      service: switch.turn_off
+      data:
+        entity_id: switch.tpplug2
+
+s1_b0:
+  alias: S1 B0
+  sequence:
+      service: light.turn_off
+      data:
+        entity_id: light.basement_bulb_b1
+
+s2_b0:
+  alias: S2 B0
+  sequence:
+      service: light.turn_off
+      data:
+        entity_id: light.basement_bulb_b2
+
+l_b0:
+  alias: L B0
+  sequence:
       service: light.turn_off
       data:
         entity_id: light.laundry_room
-        transition: 60
-    - alias: Back Storage Room off
-      service: light.turn_off
-      data:
-        entity_id: light.light.back_storage_room
-        transition: 60
-    - alias: Family Room Nightlight
+
+l_b1:
+  alias: L B1
+  sequence:
       service: light.turn_on
       data:
-        entity_id: light.family_room
-        transition: 30
+        entity_id: light.laundry_room
         brightness: 1
-    - alias: Turn off family room after 20 minutes
+
+l_b254:
+  alias: L B254
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.laundry_room
+        brightness: 254
+
+f1_b0:
+  alias: F1 B0
+  sequence:
       service: light.turn_off
       data:
-        entity_id: light.family_room
-        transition: 30
-        delay: '00:20'
-      
+        entity_id: light.basement_bulb_f1
 
+f2_b0:
+  alias: F2 B0
+  sequence:
+      service: light.turn_off
+      data:
+        entity_id: light.basement_bulb_f2
+
+f3_b0:
+  alias: F3 B0
+  sequence:
+      service: light.turn_off
+      data:
+        entity_id: light.basement_bulb_f3
+
+f4_b0:
+  alias: F4 B0
+  sequence:
+      service: light.turn_off
+      data:
+        entity_id: light.basement_bulb_f4
+
+ft_b0:
+  alias: FT b0
+  sequence:
+    service: light.off
+    data:
+      entity_id: light.top_of_stairs_bulb
+
+f1_b1:
+  alias: F1 B1
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f1
+        brightness: 1
+
+f2_b1:
+  alias: F2 B1
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f2
+        brightness: 1
+
+f3_b1:
+  alias: F3 B1
+  sequence:
+      service: light.turn_on
+      data:
+        entity3_id: light.basement_bulb_f3
+        brightness: 1
+
+f4_b1:
+  alias: F4 B1
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f4
+        brightness: 1
+
+f1_b254:
+  alias: F1 B254
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f1
+        brightness: 254
+
+f2_b254:
+  alias: F2 B254
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f2
+        brightness: 254
+
+f3_b254:
+  alias: F3 B254
+  sequence:
+      service: light.turn_on
+      data:
+        entity3_id: light.basement_bulb_f3
+        brightness: 254
+
+f4_b254:
+  alias: F4 B254
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f4
+        brightness: 254
+
+ft_b254:
+  alias: FT b254
+  sequence:
+    service: light.on
+    data:
+      entity_id: light.top_of_stairs_bulb
+      brightness: 254
+
+f1_b254_t60:
+  alias: F1 B254 T60
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f1
+        brightness: 254
+        transition: 60
+
+f2_b254_t60:
+  alias: F2 B254 T60
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f2
+        brightness: 254
+        transition: 60
+
+f3_b254_t60:
+  alias: F3 B254 T60
+  sequence:
+      service: light.turn_on
+      data:
+        entity3_id: light.basement_bulb_f3
+        brightness: 254
+        transition: 60
+
+f4_b254_t60:
+  alias: F4 B254 T60
+  sequence:
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f4
+        brightness: 254
+        transition: 60
+
+ft_b254_t60:
+  alias: FT b254 T60
+  sequence:
+    service: light.on
+    data:
+      entity_id: light.top_of_stairs_bulb
+      brightness: 254
+      transition: 60
+
+
+f1_toggle_t1:
+  alias: F1 Toggle T1
+  sequence:
+      service: light.toggle
+      data:
+        entity_id: light.basement_bulb_f1
+        transition: 1
+
+f2_toggle_t1:
+  alias: F2 Toggle T1
+  sequence:
+      service: light.toggle
+      data:
+        entity_id: light.basement_bulb_f2
+        transition: 1
+
+f3_toggle_t1:
+  alias: F3 Toggle T1
+  sequence:
+      service: light.toggle
+      data:
+        entity_id: light.basement_bulb_f3
+        transition: 1
+
+f4_toggle_t1:
+  alias: F4 Toggle T1
+  sequence:
+      service: light.toggle
+      data:
+        entity_id: light.basement_bulb_f4
+        transition: 1
+
+
+
+####### END OF Pieces #######
+#############################
+
+
+
+circle_ccw_flash_pattern_family_room:
+  alias: Circle Counter-Clockwise Flash Pattern Family Room
+  sequence:
+    - alias: "T+00 - f1 ON"
+      service: script.f1_b1
+    - delay: '00:00:01'
+    - alias: "T+00 - f2 ON"
+      service: script.f2_b1
+    - delay: '00:00:01'
+    - alias: "T+00 - f3 ON"
+      service: script.f3_b1
+    - delay: '00:00:01'
+    - alias: "T+00 - f4 ON"
+      service: script.f4_b1
+    - delay: '00:00:01'
+    - alias: "T+00 - f1 ON"
+      service: script.f1_b254
+    - delay: '00:00:01'
+    - alias: "T+00 - f2 ON"
+      service: script.f2_b254
+    - delay: '00:00:01'
+    - alias: "T+00 - f3 ON"
+      service: script.f3_b254
+    - delay: '00:00:01'
+    - alias: "T+00 - f4 ON"
+      service: script.f4_b254
+    - delay: '00:00:01'
+
+
+
+# Remove unnessessary aliases. make sure that doesn't break anything. Try rha and read log.
+
+circle_ccw_flash_pattern_family_room2:
+  alias: Circle Counter-Clockwise Flash Pattern Family Room 2
+  sequence:
+    - alias: "f2 ON bright 1"
+      service: script.f2_b1
+    - alias: "f3 ON bright 1"
+      service: script.f2_b1
+    - alias: "f4 ON bright 1"
+      service: script.f4_b1
+    - alias: "f1 ON bright 150"
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f1
+        brightness: 150
+    - delay: '00:00:02'
+
+    - alias: "f2 ON bright 150"
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f2
+        brightness: 150
+    - alias: "f1 ON bright 1"
+      service: script.f1_b1
+    - delay: '00:00:02'
+
+    - alias: "f3 ON bright 150"
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f3
+        brightness: 150
+    - alias: "f2 ON bright 1"
+      service: script.f2_b1
+    - delay: '00:00:02'
+
+
+    - alias: "f4 ON bright 150"
+      service: light.turn_on
+      data:
+        entity_id: light.basement_bulb_f4
+        brightness: 150
+    - alias: "f3 ON bright 1"
+      service: script.f3_b1
+
+
+
+# EXAMPLE CODE 
+# super_alert:
+#   alias: Alert that was set up originally for testing
+#   sequence:
+#     - alias: send notificaton to Bens iPhone
+#       service: notify.ios_bens_iphone_7
+#       data:
+#         message: "Alert"
+#         data:
+#           push:
+#             badge: 5
+#   #          sound: <SOUND FILE HERE>
+#             category: "alarm" # Needs to match the top level identifier you used in the ios configuration
+#           action_data: # Anything passed in action_data will get echoed back to Home Assistant.
+#             entity_id: light.test
+#             my_custom_data: foo_bar
+#     - alias: toggle dining room - 1
+#       service: light.toggle
+#       data:
+#         entity_id: light.dining_room_chandelier
+#         transition: 2
+#     - alias: toggle tpplug1 - 1
+#       service: switch.toggle
+#       data:
+#         entity_id: switch.tpplug1
+#     - alias: toggle wemoplug1 - 1
+#       service: switch.toggle
+#       data:
+#         entity_id: switch.wemoplug1
+#     - delay: '00:00:10'
+#     - alias: toggle dining room - 2
+#       service: light.toggle
+#       data:
+#         entity_id: light.dining_room_chandelier
+#         transition: 2
+#     - alias: toggle tpplug1 - 2
+#       service: switch.toggle
+#       data:
+#         entity_id: switch.tpplug1
+#     - alias: toggle wemoplug1 - 2
+#       service: switch.toggle
+#       data:
+#         entity_id: switch.wemoplug1
+# 

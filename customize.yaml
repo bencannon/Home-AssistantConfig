@@ -1,13 +1,21 @@
+# Note--do not put a space in front of the mdi name
 switch.tpplug1:
   friendly_name: Computer pole lamp
+  icon: mdi:floor-lamp
 switch.tpplug2:
-  friendly_name: Tool light
+  friendly_name: Workbench
+  icon: mdi:hammer
 switch.wemoplug1:
   friendly_name: Piano lamp
+  icon: mdi:wall-sconce
 switch.wemoinsightplug1:
   friendly_name: Internet switch
+  icon: mdi:router-wireless
 light.girls_bedroom:
   friendly_name: Girls room
 light.boys_bedroom:
   friendly_name: Boys room
+scene.entryway_nightlight:
+  friendly_name: hot dog
+  
 
